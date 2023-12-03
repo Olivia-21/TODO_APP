@@ -1,6 +1,6 @@
-<template>
+<template >
   <div>
-    <HeaderView H1text="TODO APP" />
+    <HeaderView :title=headText />
     <div class="main">
       <slot></slot>
     </div>
@@ -9,6 +9,12 @@
 
 <script setup>
 import HeaderView from "../components/Header/HeaderView.vue";
+import {defineProps} from 'vue'
+defineProps({
+  headText:{
+    type:String
+  }
+})
 </script>
 
 <style scoped>
