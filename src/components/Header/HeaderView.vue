@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>{{ H1text }}</h1>
+    <h1>{{ title }}</h1>
   </div>
 </template>
 
@@ -8,13 +8,12 @@
 import { defineProps } from "vue";
 
 defineProps({
-  //   image: {
-  //     type: String,
-  //   },
-  H1text: {
+  title: {
     type: String,
   },
 });
+
+
 </script>
 
 <style scoped>
