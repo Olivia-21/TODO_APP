@@ -1,43 +1,58 @@
 <template>
-  <LayOut :headText=headerText >
+  <LayOut :headText="headerText">
     <div class="buttons">
-      <ButtonView v-for="item in buttIcon" :key="item" :text= buttText @toggle=showModal @editModal="showEditModal" />
+      <CardComponent
+        v-for="item in todoList"
+        :key="item"
+        @toggle="showModal($event)"
+      />
     </div>
-    <div><AddTaskModal v-if="isShowModal" title="Add Task" @inputText="updateText" /></div>
-    <div><EditTaskModal v-if="isEditModal" @input-Text="updateText"/></div>
+    <div>
+      <AddTaskModal v-if="isShowModal" :titles="title" />
+    </div>
   </LayOut>
 </template>
 
 <script setup>
 import LayOut from "../LayOut/LayOut.vue";
-import ButtonView from "../components/Buttons/ButtonView.vue";
+import CardComponent from "../components/CardComponent.vue";
 import { ref } from "vue";
-import AddTaskModal from '../components/Modals/AddTaskModal.vue'
-import EditTaskModal from "@/components/EditTaskModal.vue";
+import AddTaskModal from "../components/Modals/AddTaskModal.vue";
+// import axios from "axios";
+// import { url } from "../Constant/url";
 
+const todoList = ref(["pencilIcon", "deleteIcon", "checkCircle", "texts"]);
+const headerText = "TODO APP";
+// const buttText = ref({ todo: " ", subtodo: " " });
+let isShowModal = ref(false);
 
+let title = ref("");
 
-const buttIcon = ref(['pencilIcon','deleteIcon','checkCircle', 'texts'])
-const headerText = 'TODO APP';
-const buttText = ref({todo: 'todo title', subtodo:'sub todo title'})
- let isShowModal = ref(false);
- let isEditModal = ref(false);
-
- const showModal = ()=>{
+const showModal = (text) => {
   isShowModal.value = !isShowModal.value;
- }
- const showEditModal = ()=>{
-  isEditModal.value = ! isEditModal.value;
- }
+  title.value = "Add Task";
 
- const updateText = (newText) =>{
-buttText.value.todo = newText,
-buttText.value.subtodo = newText
- }
+  if (text === "Edit") {
+    title.value = "Edit Task";
+  }
+  console.log(text);
+};
+// const showEditModal = () => {
+//   isEditModal.value = !isEditModal.value;
+// };
 
+// const updateText = (newText) => {
+//   (buttText.value.todo = newText), (buttText.value.subtodo = newText);
+// };
 
+// const getTodos = async () => {
+//   try {
+//     const item = await axios.post(apiurl, buttText.todo, buttText.subtodo);
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 </script>
-
 
 <style scoped>
 .buttons {

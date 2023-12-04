@@ -1,44 +1,46 @@
 <template>
-    <div class="modal" >
-      <div class="color">
-        <h2>{{title}}</h2>
-        <slot></slot>
-      </div>
-      <div class="colors"></div>
-      <FormInput />
-      <div class="butt">
-      <button  @click="$emit('inputText')">Confirm</button>
-      <button>Exit</button>
+  <div class="modal">
+    <div class="color">
+      <h2>{{ titles }}</h2>
+      <slot></slot>
     </div>
+    <div class="colors"></div>
+    <p>{{ title }}</p>
+    <InputField placeholder="Title" v-model="title" />
+    <InputField placeholder="Details" v-model="details" />
+    <div class="butt">
+      <button>
+        {{ titles === "Edit Task" ? "Update" : "Add" }}
+      </button>
+      <button v-if="titles === 'Edit Task'">Cancel</button>
     </div>
+  </div>
 </template>
 
 <script setup>
 // import LayOut from "../../LayOut/LayOut.vue";
-import {defineProps} from 'vue'
-import FormInput from '../FormView/FormInput.vue';
-
-
-
+import { defineProps, ref } from "vue";
+import InputField from "../FormView/InputField.vue";
 defineProps({
-  isModal:{
-    type:Boolean
+  isModal: {
+    type: Boolean,
   },
-  title:{
-    type:String
-  }
-})
+  titles: {
+    type: String,
+  },
+});
 
-
+const title = ref("");
+const details = ref("");
 </script>
 
 <style scoped>
 .modal {
   position: fixed;
-  top: 30%;
-  right: 15%;
-  width: 20%;
-  height: 50%;
+  top: 18%;
+  right: 30%;
+  width: 50%;
+  height: 70vh;
   align-items: center;
   justify-content: center;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
@@ -46,35 +48,38 @@ defineProps({
   border-radius: 6px;
 }
 
-.color{
+.color {
   background-color: #9395d3;
   width: 100%;
   height: 15vh;
   top: 0;
-  
-  
 }
-h2{
+h2 {
   text-transform: uppercase;
   color: #fff;
   font-family: "Josefin Sans", sans-serif;
   text-align: center;
   padding-top: 33px;
- }
+}
 
- .butt{
+.butt {
   display: flex;
   align-items: center;
   justify-content: space-around;
   margin-top: 10px;
   padding: 10px;
- }
-button{
+}
+button {
   cursor: pointer;
   padding: 5px;
   border: none;
+  width: 30%;
+  padding: 10px;
+  font-size: large;
+  background-color: #9395d3;
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.5);
   margin-right: 5px;
-
+  border-radius: 6px;
+  margin-top: 30px;
 }
 </style>

@@ -1,24 +1,27 @@
 <template>
-  <input type="text" v-bind="$attrs" modalValue="Value"/>
+  <input
+    type="text"
+    v-bind="$attrs"
+    @input="$emit('update:modelValue', $event.target.value)"
+  />
 </template>
 
 <script setup>
-import { defineProps } from 'vue';
+import { defineProps } from "vue";
 
 defineProps({
-  modalValue:{
-    type:String
-  }
-})
+  modelValue: {
+    type: String,
+  },
+});
 </script>
 
 <style scoped>
 input {
   width: 100%;
   border: none;
-  margin: 15px 0;
+  margin-top: 50px;
   outline: transparent;
   border-bottom: 1px solid #8b8787;
 }
-
 </style>

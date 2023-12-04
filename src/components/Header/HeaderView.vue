@@ -12,8 +12,6 @@ defineProps({
     type: String,
   },
 });
-
-
 </script>
 
 <style scoped>

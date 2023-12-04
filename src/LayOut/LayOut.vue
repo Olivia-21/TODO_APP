@@ -1,6 +1,6 @@
-<template >
+<template>
   <div>
-    <HeaderView :title=headText />
+    <HeaderView :title="headText" />
     <div class="main">
       <slot></slot>
     </div>
@@ -9,12 +9,13 @@
 
 <script setup>
 import HeaderView from "../components/Header/HeaderView.vue";
-import {defineProps} from 'vue'
+import { defineProps } from "vue";
+
 defineProps({
-  headText:{
-    type:String
-  }
-})
+  headText: {
+    type: String,
+  },
+});
 </script>
 
 <style scoped>
