@@ -5,11 +5,10 @@
       <slot></slot>
     </div>
     <div class="colors"></div>
-    <p>{{ title }}</p>
     <InputField placeholder="Title" v-model="title" />
     <InputField placeholder="Details" v-model="details" />
     <div class="butt">
-      <button>
+      <button @click="addOrUpdateItems">
         {{ titles === "Edit Task" ? "Update" : "Add" }}
       </button>
       <button v-if="titles === 'Edit Task'">Cancel</button>
@@ -19,9 +18,12 @@
 
 <script setup>
 // import LayOut from "../../LayOut/LayOut.vue";
-import { defineProps, ref } from "vue";
+import { defineProps, ref, watch } from "vue";
+import useTodos from "@/Composable/api";
+
+const { addTodo } = useTodos();
 import InputField from "../FormView/InputField.vue";
-defineProps({
+const props = defineProps({
   isModal: {
     type: Boolean,
   },
@@ -32,6 +34,17 @@ defineProps({
 
 const title = ref("");
 const details = ref("");
+
+const addOrUpdateItems = () => {
+  console.log(title.value);
+  if (props.titles === "Add Task") {
+    addTodo({ title: title.value, subtitle: details.value, completed: false });
+  }
+};
+
+watch(title, (val) => {
+  console.log(val);
+});
 </script>
 
 <style scoped>

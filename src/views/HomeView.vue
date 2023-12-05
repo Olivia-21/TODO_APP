@@ -5,6 +5,7 @@
         v-for="item in todoList"
         :key="item"
         @toggle="showModal($event)"
+        :todos="item"
       />
     </div>
     <div>
@@ -18,10 +19,9 @@ import LayOut from "../LayOut/LayOut.vue";
 import CardComponent from "../components/CardComponent.vue";
 import { ref } from "vue";
 import AddTaskModal from "../components/Modals/AddTaskModal.vue";
-// import axios from "axios";
-// import { url } from "../Constant/url";
+import useTodos from "../Composable/api.js";
+import { onMounted } from "vue";
 
-const todoList = ref(["pencilIcon", "deleteIcon", "checkCircle", "texts"]);
 const headerText = "TODO APP";
 // const buttText = ref({ todo: " ", subtodo: " " });
 let isShowModal = ref(false);
@@ -37,21 +37,11 @@ const showModal = (text) => {
   }
   console.log(text);
 };
-// const showEditModal = () => {
-//   isEditModal.value = !isEditModal.value;
-// };
 
-// const updateText = (newText) => {
-//   (buttText.value.todo = newText), (buttText.value.subtodo = newText);
-// };
-
-// const getTodos = async () => {
-//   try {
-//     const item = await axios.post(apiurl, buttText.todo, buttText.subtodo);
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+const { getTodoList, todoList } = useTodos();
+onMounted(() => {
+  getTodoList();
+});
 </script>
 
 <style scoped>

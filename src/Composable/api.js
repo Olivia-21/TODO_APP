@@ -1,8 +1,28 @@
 import { ref } from "vue";
-import { url } from "../Constant/url";
 import axios from "axios";
+import { url } from "../Constant/url";
 
-export const useTodos = () => {
+const useTodos = () => {
   const todoList = ref([]);
-  const getTodoList = async () => {};
+  const getTodoList = async () => {
+    try {
+      const res = await axios.get(url);
+      todoList.value = res?.data;
+      console.log(todoList.value);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const addTodo = async (data) => {
+    try {
+      await axios.post(url, data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  return { getTodoList, todoList, addTodo };
 };
+
+export default useTodos;

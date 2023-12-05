@@ -1,8 +1,9 @@
 <template>
   <div class="card">
-    <div class="buttcontent">
-      <div class="content">
-        <div></div>
+    <div class="cards">
+      <div>
+        <h2>{{ todos.title }}</h2>
+        <p>{{ todos.subtitle }}</p>
       </div>
       <div class="icons">
         <img :src="pencilIcon" @click="$emit('toggle', 'Edit')" />
@@ -33,6 +34,9 @@ defineProps({
   text: {
     type: Object,
   },
+  todos: {
+    type: Object,
+  },
 });
 </script>
 
@@ -47,28 +51,16 @@ defineProps({
   flex-shrink: 0;
 }
 
-img {
-  margin: 8px;
-  cursor: pointer;
-}
-
-.buttcontent {
+.cards {
   display: flex;
   justify-content: space-between;
 }
 
-.content {
+h2 {
   text-transform: uppercase;
-}
-
-h3 {
-  margin-bottom: 8px;
   color: #9395d3;
-  font-family: "Josefin Sans", sans-serif;
-  font-weight: 600px;
 }
-
-.blueBg {
-  background-color: #9395d3;
+p {
+  text-transform: capitalize;
 }
 </style>
