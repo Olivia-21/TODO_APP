@@ -11,6 +11,9 @@
     <div>
       <AddTaskModal v-if="isShowModal" :titles="title" />
     </div>
+    <div class="Ellipse" @click="showModal">
+      <img :src="plusIcon" alt="" />
+    </div>
   </LayOut>
 </template>
 
@@ -20,16 +23,17 @@ import CardComponent from "../components/CardComponent.vue";
 import { ref } from "vue";
 import AddTaskModal from "../components/Modals/AddTaskModal.vue";
 import useTodos from "../Composable/api.js";
+// import Ellipse from "../assets/Ellipse.png";
+import plusIcon from "../assets/plus.png";
 import { onMounted } from "vue";
 
 const headerText = "TODO APP";
-// const buttText = ref({ todo: " ", subtodo: " " });
 let isShowModal = ref(false);
 
 let title = ref("");
 
 const showModal = (text) => {
-  isShowModal.value = !isShowModal.value;
+  isShowModal.value = true;
   title.value = "Add Task";
 
   if (text === "Edit") {
@@ -52,5 +56,21 @@ onMounted(() => {
   justify-content: center;
   align-items: center;
   padding-top: 10px;
+}
+
+.Ellipse {
+  width: 70px;
+  height: 70px;
+  flex-shrink: 0;
+  background-color: #9395d3;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  right: 0;
+  top: 70%;
+  margin-right: 230px;
+  cursor: pointer;
 }
 </style>

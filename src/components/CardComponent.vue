@@ -4,15 +4,12 @@
       <div>
         <h2>{{ todos.title }}</h2>
         <p>{{ todos.subtitle }}</p>
+        <p>{{ todos.id }}</p>
       </div>
       <div class="icons">
         <img :src="pencilIcon" @click="$emit('toggle', 'Edit')" />
-        <img :src="deleteIcon" @click="$emit('toggle')" />
-        <img
-          :src="checkCircle"
-          @click="bgColorChange"
-          :class="bgColor ? 'blueBg' : 'defaultBg'"
-        />
+        <img :src="deleteIcon" @click="deleteList(todos.id)" />
+        <img :src="checkCircle" />
       </div>
     </div>
   </div>
@@ -22,13 +19,10 @@
 import pencilIcon from "../assets/Pencil.png";
 import deleteIcon from "../assets/Trash.png";
 import checkCircle from "../assets/CheckCircle.png";
-import { defineProps, ref } from "vue";
+import { defineProps } from "vue";
+import useTodos from "@/Composable/api";
 
-const bgColor = ref(false);
-
-const bgColorChange = () => {
-  bgColor.value = !bgColor.value;
-};
+const { deleteTodo } = useTodos();
 
 defineProps({
   text: {
@@ -38,6 +32,9 @@ defineProps({
     type: Object,
   },
 });
+const deleteList = (id) => {
+  deleteTodo(id);
+};
 </script>
 
 <style scoped>

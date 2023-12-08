@@ -18,7 +18,7 @@
 
 <script setup>
 // import LayOut from "../../LayOut/LayOut.vue";
-import { defineProps, ref, watch } from "vue";
+import { defineProps, ref } from "vue";
 import useTodos from "@/Composable/api";
 
 const { addTodo } = useTodos();
@@ -27,6 +27,7 @@ const props = defineProps({
   isModal: {
     type: Boolean,
   },
+
   titles: {
     type: String,
   },
@@ -34,17 +35,13 @@ const props = defineProps({
 
 const title = ref("");
 const details = ref("");
-
 const addOrUpdateItems = () => {
   console.log(title.value);
   if (props.titles === "Add Task") {
     addTodo({ title: title.value, subtitle: details.value, completed: false });
+    props.modalClose;
   }
 };
-
-watch(title, (val) => {
-  console.log(val);
-});
 </script>
 
 <style scoped>
